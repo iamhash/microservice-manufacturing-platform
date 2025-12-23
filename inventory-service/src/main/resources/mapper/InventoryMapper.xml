@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.bugstack.ai.inventoryservice.mapper.InventoryMapper">
+    <resultMap id="InventoryMaterialResult" type="cn.bugstack.ai.inventoryservice.domain.InventoryMaterial">
+        <id property="id" column="id"/>
+        <result property="materialCode" column="material_code"/>
+        <result property="stockQty" column="stock_qty"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <sql id="selectInventoryMaterial">
+        select id, material_code, stock_qty, update_time from inventory_material
+    </sql>
+
+    <select id="selectByMaterialCode" parameterType="java.lang.String" resultMap="InventoryMaterialResult">
+        <include refid="selectInventoryMaterial"/>
+        where material_code = #{materialCode}
+    </select>
+
+    <update id="deductStock">
+        update inventory_material
+        set stock_qty = stock_qty - #{qty},
+            update_time = now()
+        where material_code = #{materialCode}
+        AND stock_qty &gt; #{qty}
+    </update>
+
+
+
+
+</mapper>

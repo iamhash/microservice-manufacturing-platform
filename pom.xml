@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.bugstack.ai</groupId>
+    <artifactId>manufacturing-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>common-gateway</module>
+        <module>common-service-registry</module>
+        <module>common-lib</module>
+        <module>common-infra</module>
+        <module>api</module>
+        <module>order-service</module>
+        <module>production-planning-service</module>
+        <module>inventory-service</module>
+        <module>equipment-service</module>
+        <module>quality-service</module>
+
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <dubbo.version>2.7.21</dubbo.version>
+        <dubbo.starter.version>2.7.15</dubbo.starter.version>
+        <!-- 定义子模块版本 -->
+        <api.module.version>1.0-SNAPSHOT</api.module.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- API 模块 -->
+            <dependency>
+                <groupId>cn.bugstack.ai</groupId>
+                <artifactId>api</artifactId>
+                <version>${api.module.version}</version>
+            </dependency>
+            <!-- Dubbo 依赖 -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>${dubbo.starter.version}</version>
+            </dependency>
+            <!-- Lombok 版本管理 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.30</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.13.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.5</version> <!-- 与Spring Boot 2.6兼容的版本 -->
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-webflux</artifactId>
+                <version>2.6.13</version>
+            </dependency>
+            <!-- Spring Cloud Gateway -->
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.cloud</groupId>-->
+<!--                <artifactId>spring-cloud-starter-gateway</artifactId>-->
+<!--                -->
+<!--            </dependency>-->
+            <!-- MySQL 驱动 (注意artifactId) -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.28</version><!-- 此artifactId多用于MySQL 5.x/早期8.x驱动 -->
+                <!-- 对于更新的MySQL 8.x，推荐使用 `mysql-connector-j` -->
+            </dependency>
+            <!-- Spring Boot JDBC -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
+                <version>2.6.13</version>
+            </dependency>
+            <!-- Jackson Databind (通常已由starter-webflux间接引入) -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.13.5</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>

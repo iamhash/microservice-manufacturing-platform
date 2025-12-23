@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.bugstack.ai.productionplanningservice.mapper.ProductionPlanMapper">
+
+    <resultMap id="productionPlanningResult" type="cn.bugstack.ai.productionplanningservice.domain.ProductionPlan">
+        <id property="id" column="id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="modelCode" column="model_code"/>
+        <result property="quantity" column="quantity"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectProductionPlan">
+        select id, order_id, model_code, quantity, status, create_time from production_plan
+    </sql>
+
+    <insert id="insert" parameterType="cn.bugstack.ai.productionplanningservice.domain.ProductionPlan">
+    insert into production_plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">id,</if>
+        <if test="orderId != null">order_id,</if>
+        <if test="modelCode != null">model_code,</if>
+        <if test="quantity != null">quantity,</if>
+        <if test="status != null">status,</if>
+        <if test="createTime != null">create_time,</if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+        <if test="id != null">#{id},</if>
+        <if test="orderId != null">#{orderId},</if>
+        <if test="modelCode != null">#{modelCode},</if>
+        <if test="quantity != null">#{quantity},</if>
+        <if test="status != null">#{status},</if>
+        <if test="createTime != null">#{createTime},</if>
+    </trim>
+    </insert>
+
+    <select id="selectById" resultMap="productionPlanningResult">
+        <include refid="selectProductionPlan"/>
+        where id = #{id}
+    </select>
+
+</mapper>

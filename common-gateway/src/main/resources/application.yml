@@ -1,0 +1,10 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: common-gateway
+  datasource:
+    url:  jdbc:mysql://localhost:3309/course_common_db?useSSL=false&serverTimezone=UTC
+    username: root
+    password: ljy6266862969

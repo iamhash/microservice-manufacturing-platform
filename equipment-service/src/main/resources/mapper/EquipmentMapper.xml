@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.bugstack.ai.equipmentservice.mapper.EquipmentMapper">
+    <resultMap id="EquipmentResult" type="cn.bugstack.ai.equipmentservice.domain.Equipment">
+        <id property="id" column="id"/>
+        <result property="type" column="type"/>
+        <result property="status" column="status"/>
+        <result property="oee" column="oee"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectEquipment">
+        select id, type, status, oee, update_time from equipment
+    </sql>
+
+    <select id="selectById" resultMap="EquipmentResult">
+        <include refid="selectEquipment"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectByIds" resultMap="EquipmentResult">
+        <include refid="selectEquipment"/>
+        where id in
+        <foreach item="item" collection="list" separator="," close=")" open="(" >
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>
